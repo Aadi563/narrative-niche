@@ -2,7 +2,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import AlertSuccess from "../components/AlertSuccess";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Page() {
   const [isAlertVisible, setIsAlertVisible] = useState(false);
