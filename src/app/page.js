@@ -3,10 +3,19 @@ import connectToDatabase from "./api/db/db";
 import limitedBlogsDataFetch from "@/app/lib/fetchLimitedBlogs";
 
 export default async function Home() {
-  await connectToDatabase();
   const INITIAL_NUMBER_OF_BLOGS = 6;
   const NUMBER_OF_BLOGS_TO_FETCH = 3;
-  const initialBlogs = await limitedBlogsDataFetch(0, INITIAL_NUMBER_OF_BLOGS);
+  let initialBlogs;
+
+  try {
+    await connectToDatabase();
+    initialBlogs = await limitedBlogsDataFetch(0, INITIAL_NUMBER_OF_BLOGS);
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    // Handle the error appropriately in your UI
+    return;
+  }
+  // Consider adding a loading state here
   return (
     <main>
       <BlogCards initialBlogs={initialBlogs.data} NumberOfBlogsToFetch={NUMBER_OF_BLOGS_TO_FETCH}/>

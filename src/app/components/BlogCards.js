@@ -35,8 +35,8 @@ const BlogCards = (props) => {
     <div className="flex flex-wrap justify-center items-center py-10 px-5 gap-10 md:px-20
     md:justify-between">
       {props.initialBlogs.length == 0?<div className="flex w-full justify-center items-center">No Blogs available currently!</div>:
-      <>{blogs.map((elem, id) => (
-        <SingleBlogCard key={id} elem={elem} />
+      <>{blogs.map((elem) => (
+        <SingleBlogCard key={elem._id} elem={elem} />
       ))}
       <div className="flex justify-center items-center w-full" ref={ref}>
         <div ref={loaderRef}>

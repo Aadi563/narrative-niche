@@ -3,12 +3,18 @@ import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AlertSuccess from "./AlertSuccess";
+import { useState } from "react";
 
 export default function Profile() {
   const router = useRouter();
+  const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const { data: session } = useSession();
   if (session) {
     return (
+      <>
+      <AlertSuccess message={alertMessage} isVisible={isSuccessAlertVisible} />
       <div className="rounded-md dropdown dropdown-end">
         <div
           tabIndex={0}
@@ -41,7 +47,11 @@ export default function Profile() {
             <div
               onClick={() => {
                 router.push("/");
-                signOut();
+                setIsSuccessAlertVisible(true);
+                setAlertMessage("Signed out successfully!");
+                setTimeout(()=>{
+                  signOut();
+                }, 1000)
               }}
             >
               Logout
@@ -49,6 +59,7 @@ export default function Profile() {
           </li>
         </ul>
       </div>
+      </>
     );
   }
   return (

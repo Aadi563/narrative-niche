@@ -1,9 +1,9 @@
-export default function AlertError(props) {
-  if (!props.isVisible) return <></>;
+export default function AlertError({ isVisible, message }) {
+  if (!isVisible) return null;
   return (
     <div className="top-16 toast toast-top toast-end">
       <div className="alert alert-error">
-        <span>{props.message}</span>
+        <span>{message}</span>
       </div>
     </div>
   );

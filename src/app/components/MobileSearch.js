@@ -6,10 +6,11 @@ const MobileSearch = (props) => {
   let mobileSearchBoxRef = useRef(null);
   let mobileSuggestionListRef = useRef(null);
   const [inputValueDetector, setInputValueDetector] = useState();
+
   useEffect(() => {
     let arr = [];
     props.data.data.forEach((elem) => {
-      arr.push({"title":elem.title, "id":elem._id});
+      arr.push({ title: elem.title, id: elem._id });
     });
     if (mobileSearchBoxRef.current.value.length === 0) {
       mobileSuggestionListRef.current.innerHTML = "";
@@ -19,7 +20,7 @@ const MobileSearch = (props) => {
     mobileSuggestionListRef.current.innerHTML = "";
     let i = 0;
     arr.forEach((str) => {
-      if(i >= 10) return;
+      if (i >= 10) return;
       if (regex.exec(str.title) === null) {
         return;
       }
@@ -37,7 +38,7 @@ const MobileSearch = (props) => {
               parseInt(mobileSearchBoxRef.current.value.length)
         ) {
           liElement.innerHTML += `<span style='font-size:1.6rem;
-            font-weight:bold;'>${str.title[i]}</span>`;
+              font-weight:bold;'>${str.title[i]}</span>`;
         } else {
           liElement.innerHTML += `<span>${str.title[i]}</span>`;
         }
