@@ -2,7 +2,7 @@
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const router = useRouter();
@@ -17,8 +17,9 @@ export default function Profile() {
         >
           <div className="w-10 rounded-full">
             <Image
-              width={100}
-              height={100}
+              quality={100}
+              width={2000}
+              height={2000}
               alt="Tailwind CSS Navbar component"
               src={session.user.image}
             />
@@ -26,7 +27,7 @@ export default function Profile() {
         </div>
         <ul
           tabIndex={0}
-          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          className="rounded-md mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 w-52"
         >
           {/* <li>
             <a className="justify-between">
@@ -39,7 +40,7 @@ export default function Profile() {
           <li>
             <div
               onClick={() => {
-                router.push('/')
+                router.push("/");
                 signOut();
               }}
             >

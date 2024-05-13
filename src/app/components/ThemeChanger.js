@@ -24,7 +24,6 @@ const ThemeChanger = () => {
           }
           else{
             localStorage.setItem("isDark", "true");
-            document.querySelector("html").setAttribute("data-theme", "business");
           }
         }}
       />

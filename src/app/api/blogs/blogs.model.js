@@ -14,7 +14,7 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Cover Image is required']
   },
-  coverContent:{
+  overview:{
     type: String,
     required: [true, 'Cover Image is required'],
     maxlength: [255, "Max length can't be more than 255 characters"]

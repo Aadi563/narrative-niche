@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import Loading from "@/app/components/Loading";
 
 const BlogCards = (props) => {
-  const [offset, setOffset] = useState(props.initialNumberOfBlogs);
+  const [offset, setOffset] = useState(props.initialBlogs.length);
   const [blogs, setBlogs] = useState(props.initialBlogs);
   const { ref, inView } = useInView();
   const loaderRef = useRef(null);
@@ -15,9 +15,9 @@ const BlogCards = (props) => {
       offset,
       props.NumberOfBlogsToFetch
     );
-    if(apiBlogs.length >0){
-      setBlogs([...blogs, ...apiBlogs]);
-      setOffset(offset + apiBlogs.length);
+    if(apiBlogs.data.length > 0){
+      setBlogs([...blogs, ...apiBlogs.data]);
+      setOffset(offset + apiBlogs.data.length);
     }
     else{
       loaderRef.current.style.display = "none";

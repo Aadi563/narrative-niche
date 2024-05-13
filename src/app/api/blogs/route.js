@@ -8,16 +8,16 @@ import DOMPurify from 'isomorphic-dompurify';
 export async function GET(request) {
   try {
     const blog = await blogsModel.find({});
-    return NextResponse.json(blog);
+    return NextResponse.json({ status: "success", data: blog, statusCode: 200 });
   } catch (error) {
     console.error(`Error while fetching blogs: ${error}`);
     return NextResponse.json({ status: "error", message: "Failed to fetch blogs" });
   }
 }
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const formData = await req.formData();
+    const formData = await request.formData();
     const image = formData.get("files");
     if (!image) throw new Error("Image not provided");
     console.log(Object.values(formData));
@@ -37,11 +37,11 @@ export async function POST(req) {
         coverImage: `${cloudinaryUrl.secure_url}`,
         author: "Aadi563",
         content: DOMPurify.sanitize(`${formData.get("content")}`),
-        coverContent: DOMPurify.sanitize(`${formData.get("coverContent")}`),
+        overview: DOMPurify.sanitize(`${formData.get("overview")}`),
       }
     )
     await newBlog.save();
-    return NextResponse.json({ status: "success", data: newBlog });
+    return NextResponse.json({ status: "success", data: newBlog, statusCode: 200});
   } catch (error) {
     console.error(`Error while uploading image: ${error}`);
     return NextResponse.json({ status: "error", message: "Failed to upload image" });

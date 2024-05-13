@@ -10,7 +10,7 @@ export default async function Page({ params }) {
     <div className="py-10 px-10 md:px-80">
       <ViewScroller />
       <div className="text-4xl md:text-5xl">{currentBlog.title}</div>
-      <div className="text-sm text-slate-500 mb-10 mt-2">Uploaded on:- {currentBlog.createdAt}</div>
+      <div className="text-sm text-slate-500 mb-10 mt-2">Uploaded on:- {currentBlog.createdAt.split("T")[0]} at {`${currentBlog.createdAt.split("T")[1]}`.split(":")[0]+":"+`${currentBlog.createdAt.split("T")[1]}`.split(":")[1]} {`${parseInt(`${currentBlog.createdAt.split("T")[1]}`.split(":")[0])>=12}`?"PM":"AM"} by {currentBlog.author}</div>
       <div className="bg-red-950 h-auto w-full my-10">
         <Image
           src={currentBlog.coverImage}

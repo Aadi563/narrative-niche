@@ -9,7 +9,7 @@ const Search = (props) => {
     const [inputValueDetector, setInputValueDetector] = useState();
     useEffect(() => {
         let arr = [];
-        props.data.forEach((elem) => {
+        props.data.data.forEach((elem) => {
           arr.push({"title":elem.title, "id":elem._id});
         });
         if (searchBoxRef.current.value.length === 0) {

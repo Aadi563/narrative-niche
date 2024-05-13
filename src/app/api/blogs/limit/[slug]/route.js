@@ -6,7 +6,7 @@ export async function GET(request) {
     const limit = request.url.split("/")[6].split("-")[1];
     try {
       const blog = await blogsModel.find({}).skip(offset).limit(limit);
-      return NextResponse.json(blog);
+      return NextResponse.json({ status: "error", data: blog, statusCode: 200 });
     } catch (error) {
       console.error(`Error while fetching blogs: ${error}`);
       return NextResponse.json({ status: "error", message: "Failed to fetch blogs" });

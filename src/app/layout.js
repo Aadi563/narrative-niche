@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <SessionWrapper>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${inter.className} my-20`}>
           <NextTopLoader
             color="red"
             initialPosition={0.08}

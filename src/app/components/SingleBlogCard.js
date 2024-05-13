@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
 
 const SingleBlogCard = (props) => {
   const sanitizedContent = DOMPurify.sanitize(
-    props.elem.coverContent
+    props.elem.overview
   );
   return (
-    <div className="rounded-md card w-96 bg-base-100 shadow-xl overflow-hidden">
+    <div className="card w-96 bg-base-100 shadow-xl rounded-md overflow-hidden">
       <figure>
         <Image
           src={props.elem.coverImage}
@@ -19,7 +18,7 @@ const SingleBlogCard = (props) => {
           alt={props.elem.title}
         />
       </figure>
-      <div className="card-body h-auto">
+      <div className="card-body">
         <h2 className="card-title">{props.elem.title}</h2>
         <div
           className="overflow-hidden"

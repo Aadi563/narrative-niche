@@ -2,8 +2,9 @@
 import React, { useState, useRef, forwardRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import AlertError from "../components/AlertError";
+import AlertSuccess from "../components/AlertSuccess";
+import { useRouter } from "next/navigation";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const JoditEditorWithRef = forwardRef((props, ref) => (
@@ -11,30 +12,37 @@ const JoditEditorWithRef = forwardRef((props, ref) => (
 ));
 JoditEditorWithRef.displayName = "JoditEditorWithRef";
 
-async function savePost(title, content, coverContent, imageURL) {
-  let formdata = new FormData();
-  formdata.append("title", title);
-  formdata.append("content", content);
-  formdata.append("coverContent", coverContent);
-  formdata.append("author", "Aadi563");
-  formdata.append("files", imageURL);
-  if (!imageURL) return alert("Please upload cover image!");
-  const response = await fetch("http://localhost:3000/api/blogs/", {
-    method: "POST",
-    body: formdata,
-  });
+async function savePost(title, content, overview, imageURL, author) {
+  try {
+    let formdata = new FormData();
+    formdata.append("title", title);
+    formdata.append("content", content);
+    formdata.append("overview", overview);
+    formdata.append("author", author);
+    formdata.append("files", imageURL);
+    const response = await fetch("http://localhost:3000/api/blogs/", {
+      method: "POST",
+      body: formdata,
+    });
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (error) {
+    console.error(`An error occurred while saving the post: ${error.message}`);
+    return error;
+  }
 }
 export default function Page() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false);
+  const [isErrorAlertVisible, setIsErrorAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const titleRef = useRef(null);
   const editorRef = useRef(null);
-  const coverContentRef = useRef(null);
+  const overviewRef = useRef(null);
   const coverImageRef = useRef(null);
   const titleTotalLengthRef = useRef(null);
-  const coverContentTotalLengthRef = useRef(null);
+  const overviewTotalLengthRef = useRef(null);
   const [content, setContent] = useState("");
   const [imageURL, setImageURL] = useState("");
   useEffect(() => {
@@ -43,19 +51,27 @@ export default function Page() {
 
   return (
     <>
-      <AlertError
-        message={alertMessage}
-        isVisible={isAlertVisible}
-      />
+      <AlertError message={alertMessage} isVisible={isErrorAlertVisible} />
+      <AlertSuccess message={alertMessage} isVisible={isSuccessAlertVisible} />
       <form
-        onSubmit={() => {
-          savePost(
-            DOMPurify.sanitize(titleRef.current.value),
-            DOMPurify.sanitize(content),
-            DOMPurify.sanitize(coverContentRef.current.value),
-            imageURL
-          );
-        }}
+        onSubmit={async (e) => {
+          e.preventDefault();
+            const response = await savePost(
+              DOMPurify.sanitize(titleRef.current.value),
+              DOMPurify.sanitize(content),
+              DOMPurify.sanitize(overviewRef.current.value),
+              imageURL,
+              session.user.name
+            );
+            if(response.statusCode == 200){
+              setAlertMessage("Post saved successfully!");
+              setIsSuccessAlertVisible(true);
+              setTimeout(() => {
+                router.push("/");
+              }, 2000);
+            }
+          }
+        }
       >
         <div
           ref={editorRef}
@@ -71,13 +87,8 @@ export default function Page() {
               placeholder="Type here"
               className="input input-bordered w-full"
               required={true}
+              maxLength={100}
               onChange={(e) => {
-                if (e.target.value.length > 100) {
-                  titleRef.current.className =
-                    "input input-bordered w-full input-error";
-                } else {
-                  titleRef.current.className = "input input-bordered w-full";
-                }
                 titleTotalLengthRef.current.innerHTML = `Total Length:- ${e.target.value.length} characters`;
               }}
             />
@@ -95,23 +106,17 @@ export default function Page() {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text text-2xl">Cover Content</span>
+              <span className="label-text text-2xl">Overview</span>
             </div>
             <input
-              ref={coverContentRef}
+              ref={overviewRef}
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full"
               required={true}
+              maxLength={255}
               onChange={(e) => {
-                if (e.target.value.length > 255) {
-                  coverContentRef.current.className =
-                    "input input-bordered w-full input-error";
-                } else {
-                  coverContentRef.current.className =
-                    "input input-bordered w-full";
-                }
-                coverContentTotalLengthRef.current.innerHTML = `Total Length:- ${e.target.value.length} characters`;
+                overviewTotalLengthRef.current.innerHTML = `Total Length:- ${e.target.value.length} characters`;
               }}
             />
             <div className="label">
@@ -119,7 +124,7 @@ export default function Page() {
                 Maximum Length:- 255 characters
               </span>
               <span
-                ref={coverContentTotalLengthRef}
+                ref={overviewTotalLengthRef}
                 className="label-text-alt text-slate-400"
               >
                 Total Length:- 0 characters
@@ -177,10 +182,10 @@ export default function Page() {
                 setContent("");
                 titleRef.current.value = "";
                 coverImageRef.current.value = "";
-                setIsAlertVisible(true);
+                setIsSuccessAlertVisible(true);
                 setAlertMessage("Form reset successfully!");
                 setTimeout(() => {
-                  setIsAlertVisible(false)
+                  setIsSuccessAlertVisible(false);
                 }, 2000);
               }}
             >
