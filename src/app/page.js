@@ -17,7 +17,7 @@ export default async function Home() {
   }
   // Consider adding a loading state here
   return (
-    <main>
+    <main className="text-slate-800 dark:text-slate-300">
       <BlogCards initialBlogs={initialBlogs.data} NumberOfBlogsToFetch={NUMBER_OF_BLOGS_TO_FETCH}/>
     </main>
   );

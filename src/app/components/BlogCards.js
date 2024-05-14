@@ -32,7 +32,7 @@ const BlogCards = (props) => {
     }
   }, [inView]);
   return (
-    <div className="flex flex-wrap justify-center items-center py-10 px-5 gap-10 md:px-20
+    <nav className="flex flex-wrap justify-center items-center py-10 px-5 gap-10 md:px-20
     md:justify-between">
       {props.initialBlogs.length == 0?<div className="flex w-full justify-center items-center">No Blogs available currently!</div>:
       <>{blogs.map((elem) => (
@@ -43,7 +43,7 @@ const BlogCards = (props) => {
         <Loading  />
         </div>
       </div></>}
-    </div>
+    </nav>
   );
 };
 

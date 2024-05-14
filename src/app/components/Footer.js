@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 footer items-center p-4 bg-neutral text-neutral-content">
-      <aside className="items-center grid-flow-col">
+    <footer className="bg-transparent backdrop-blur-3xl fixed bottom-0 footer items-center p-4">
+      <aside className="items-center grid-flow-col font-bold">
         <p>Copyright © 2024 - All right reserved</p>
       </aside>
       {/* <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">

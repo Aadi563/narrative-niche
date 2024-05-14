@@ -45,6 +45,7 @@ export default function Profile() {
           </li>` */}
           <li>
             <div
+            className="text-slate-100"
               onClick={() => {
                 router.push("/");
                 setIsSuccessAlertVisible(true);
@@ -64,7 +65,7 @@ export default function Profile() {
   }
   return (
     <Link href={"./auth"}>
-      <button className="btn rounded-md btn-active btn-primary">Login</button>
+      <button className="btn outline-none border-none animate-gradient-x bg-gradient-to-r from-gray-300 to-gray-600 hover:bg-gradient-to-bl hover:animate-gradient-y rounded-md btn-active text-slate-800 dark:text-slate-100">Login</button>
     </Link>
   );
 }

@@ -37,6 +37,11 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "www.w3.org",
+        pathname: "**",
+      }
     ],
   },
 };

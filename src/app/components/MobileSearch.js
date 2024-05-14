@@ -64,12 +64,12 @@ const MobileSearch = (props) => {
         id="my_modal_5"
         className="modal modal-bottom sm:modal-middle"
       >
-        <div className="modal-box">
+        <div className="modal-box bg-transparent backdrop-blur-3xl">
           <ul
             ref={mobileSuggestionListRef}
             id="suggestion-list"
             tabIndex={0}
-            className="mb-2 border-0 dropdown-content z-[2] bg-base-100 rounded-box w-full"
+            className="mb-2 bg-transparent backdrop-blur-3xl border-0 dropdown-content z-[2] bg-base-100 rounded-box w-full text-slate-300"
           ></ul>
           <div className="flex overflow-hidden border w-80 items-center rounded-md">
             <svg
@@ -87,7 +87,7 @@ const MobileSearch = (props) => {
               type="text"
               priority="true"
               placeholder="Search Articles..."
-              className="px-0 outline-0 border-0 input md:w-full"
+              className="outline-none px-0 bg-transparent backdrop-blur-3xl outline-0 border-none input md:w-full placeholder:text-slate-300"
               onInput={() => {
                 setInputValueDetector(mobileSearchBoxRef.current.value);
               }}
@@ -96,7 +96,7 @@ const MobileSearch = (props) => {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="outline-none border-none animate-gradient-x btn bg-gradient-to-r from-gray-300 to-gray-600 hover:bg-gradient-to-bl hover:animate-gradient-y text-slate-800 dark:text-slate-100">Close</button>
             </form>
           </div>
         </div>

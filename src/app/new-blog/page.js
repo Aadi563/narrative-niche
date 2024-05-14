@@ -21,7 +21,7 @@ async function savePost(title, content, overview, imageURL, author) {
     formdata.append("overview", overview);
     formdata.append("author", author);
     formdata.append("files", imageURL);
-    const response = await fetch("http://localhost:3000/api/blogs/", {
+    const response = await fetch(process.env.ROOT_URL+"/api/blogs/", {
       method: "POST",
       body: formdata,
     });
@@ -80,7 +80,7 @@ export default function Page() {
         >
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text text-2xl">Title</span>
+              <span className="label-text text-2xl text-slate-800 dark:text-slate-100">Title</span>
             </div>
             <input
               ref={titleRef}
@@ -94,12 +94,12 @@ export default function Page() {
               }}
             />
             <div className="label">
-              <span className="label-text-alt text-slate-400">
+              <span className="label-text-alt text-slate-800 dark:text-slate-100">
                 Maximum Length:- 100 characters
               </span>
               <span
                 ref={titleTotalLengthRef}
-                className="label-text-alt text-slate-400"
+                className="label-text-alt text-slate-800 dark:text-slate-100"
               >
                 Total Length:- 0 characters
               </span>
@@ -107,7 +107,7 @@ export default function Page() {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text text-2xl">Overview</span>
+              <span className="label-text text-2xl text-slate-800 dark:text-slate-100">Overview</span>
             </div>
             <input
               ref={overviewRef}
@@ -121,12 +121,12 @@ export default function Page() {
               }}
             />
             <div className="label">
-              <span className="label-text-alt text-slate-400">
+              <span className="label-text-alt text-slate-800 dark:text-slate-100">
                 Maximum Length:- 255 characters
               </span>
               <span
                 ref={overviewTotalLengthRef}
-                className="label-text-alt text-slate-400"
+                className="label-text-alt text-slate-800 dark:text-slate-100"
               >
                 Total Length:- 0 characters
               </span>
@@ -134,7 +134,7 @@ export default function Page() {
           </label>
           <label className="form-control w-full h-full">
             <div className="label">
-              <span className="label-text text-2xl">Content</span>
+              <span className="label-text text-2xl text-slate-800 dark:text-slate-100">Content</span>
             </div>
             <JoditEditorWithRef
               className="min-h-[80rem]"
@@ -146,7 +146,7 @@ export default function Page() {
           </label>
           <label className="form-control w-full h-full">
             <div className="label">
-              <span className="label-text text-2xl">Cover Image</span>
+              <span className="label-text text-2xl text-slate-800 dark:text-slate-100">Cover Image</span>
             </div>
             <div className="container flex justify-center items-center">
               <input
@@ -160,7 +160,7 @@ export default function Page() {
               />
               <button
                 type="button"
-                className="btn btn-primary join-item w-32 rounded-md"
+                className="outline-none border-none animate-gradient-x btn bg-gradient-to-r from-gray-300 to-gray-600 hover:bg-gradient-to-bl hover:animate-gradient-y text-slate-800 dark:text-slate-100"
                 onClick={() => {
                   setImageURL(coverImageRef.current.files[0]);
                 }}
@@ -172,13 +172,13 @@ export default function Page() {
           <div className="join">
             <button
               type="submit"
-              className="btn btn-primary join-item w-32 rounded-md"
+              className="w-32 join-item outline-none border-none animate-gradient-x btn bg-gradient-to-r from-gray-300 to-gray-600 hover:bg-gradient-to-bl hover:animate-gradient-y text-slate-800 dark:text-slate-100"
             >
               Publish
             </button>
             <button
               type="button"
-              className="btn btn-error join-item w-32 rounded-md"
+              className="w-32 join-item outline-none border-none animate-gradient-x btn bg-gradient-to-r from-gray-300 to-gray-600 hover:bg-gradient-to-bl hover:animate-gradient-y text-slate-800 dark:text-slate-100"
               onClick={() => {
                 setContent("");
                 titleRef.current.value = "";

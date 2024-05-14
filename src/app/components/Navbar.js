@@ -8,7 +8,7 @@ import PublishBlogButton from "@/app/components/PublishBlogButton";
 const Navbar = async () => {
   const data = await allblogsDataFetch();
   return (
-    <div className="flex fixed top-0 z-30 justify-between items-center navbar bg-base-100 px-5 md:px-20">
+    <div className="bg-transparent backdrop-blur-md flex fixed top-0 z-30 justify-between items-center navbar bg-base-100 px-5 md:px-20">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">NarrativeNiche</a>
       </div>
@@ -16,8 +16,8 @@ const Navbar = async () => {
         <ThemeChanger />
         <MobileSearch data={data} />
         <Search data={data} />
-        <PublishBlogButton/>
-        <Profile/>
+        <PublishBlogButton />
+        <Profile />
       </div>
     </div>
   );

@@ -7,11 +7,11 @@ export default async function Page({ params }) {
   const blogId = params.id;
   const currentBlog = await fetchBlogDetails(blogId);
   return (
-    <div className="py-10 px-10 md:px-80">
+    <div className="py-10 px-10 bg-white text-slate-950 md:px-80">
       <ViewScroller />
       <div className="text-4xl md:text-5xl">{currentBlog.title}</div>
       <div className="text-sm text-slate-500 mb-10 mt-2">Uploaded on:- {currentBlog.createdAt.split("T")[0]} at {`${currentBlog.createdAt.split("T")[1]}`.split(":")[0]+":"+`${currentBlog.createdAt.split("T")[1]}`.split(":")[1]} {`${parseInt(`${currentBlog.createdAt.split("T")[1]}`.split(":")[0])>=12}`?"PM":"AM"} by {currentBlog.author}</div>
-      <div className="bg-red-950 h-auto w-full my-10">
+      <div className="h-auto w-full my-10">
         <Image
           src={currentBlog.coverImage}
           width={2000}
