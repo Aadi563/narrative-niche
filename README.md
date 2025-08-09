@@ -58,6 +58,3 @@ npm run dev
 2. Create a new branch (`git checkout -b feature/your-feature`)
 3. Commit your changes
 4. Push to your branch and open a Pull Request
-
-## License
-This project is for educational and placement purposes. Feel free to use and modify it for your own learning or portfolio.
